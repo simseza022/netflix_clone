@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:popcorn_flix/Networking/network_helper.dart';
-import 'package:popcorn_flix/Networking/request_helper.dart';
 import 'package:popcorn_flix/components/reusable_movie_card.dart';
-import 'package:popcorn_flix/screens/category_screen.dart';
-
-
-import '../dataObjects/movieDO.dart';
+import '../dataObjects/movieDO1.dart';
 
 class ReusableMovieGroup extends StatefulWidget {
   final String categoryName;
-  final List<MovieDO> movies;
+  final List<MovieDO1> movies;
   const ReusableMovieGroup({super.key, required this.categoryName, required this.movies});
 
   @override
@@ -34,8 +29,8 @@ class _ReusableMovieGroupState extends State<ReusableMovieGroup> {
               ),
               TextButton(
                   onPressed: () {
-                    RequestHelper().getMovies();
-                    Navigator.push(context, MaterialPageRoute(builder: (c)=>CategoryScreen(movies: widget.movies)));
+                    // RequestHelper().getMovies();
+                    // Navigator.push(context, MaterialPageRoute(builder: (c)=>CategoryScreen(movies: widget.movies)));
                   },
                   child: const Text("View All",
                       textAlign: TextAlign.end,
@@ -44,7 +39,7 @@ class _ReusableMovieGroupState extends State<ReusableMovieGroup> {
           ),
         ),
         SizedBox(
-          height: 200,
+          height: 230,
           child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,

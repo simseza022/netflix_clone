@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:popcorn_flix/screens/loading_screen.dart';
 
 import '../screens/home_screen.dart';
 
@@ -55,7 +56,7 @@ class _LoginFormState extends State<LoginForm> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 40),
               child: Image.asset(
-                "images/Netflix_logo.png",
+                "images/popFlixP.png",
                 width: 110,
                 height: 110,
               ),
@@ -132,7 +133,7 @@ class _LoginFormState extends State<LoginForm> {
               child: ElevatedButton(
                   onPressed: () {
                    if(formKey.currentState!.validate()){
-                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>  HomeScreen()), (route) => false);
+                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>  LoadingScreen()), (route) => false);
                    }
                   },
                   style: ButtonStyle(
