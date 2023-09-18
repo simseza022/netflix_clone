@@ -1,16 +1,21 @@
 # popcorn_flix
 
-A ne
+This is a movie app which allows users to check and search different movies from different producers.
 
-## Getting Started
+Users can also mark their favorite movies.
 
-This project is a starting point for a Flutter application.
+This Application uses the [MoviesDatabase](https://rapidapi.com/SAdrian/api/moviesdatabase) API from Rapid API for the movie data.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Specification
+- Framework: Flutter
+- Programming Launguage: Dart
+- Aunthentification: Firebase
+- Database: Firebase
+- Movie data:  [MoviesDatabase](https://rapidapi.com/SAdrian/api/moviesdatabase)
+- Inspiration: Netflix
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
+
