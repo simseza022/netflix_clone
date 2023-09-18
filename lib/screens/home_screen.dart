@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:popcorn_flix/screens/favorites_screen.dart';
 import 'package:popcorn_flix/screens/landing_screen.dart';
+import 'package:popcorn_flix/screens/profile_screen.dart';
 import 'package:popcorn_flix/screens/search_screen.dart';
-
 
 class HomeScreen extends StatefulWidget {
   final Map netMovies;
@@ -27,25 +27,37 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
     return Scaffold(
       appBar: AppBar(
+          /**/
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.dehaze,
-                color: Colors.white,
+            Padding(
+              padding: EdgeInsets.only(right: 15),
+              child: InkWell(
+                splashColor: Colors.white,
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ProfileScreen()));
+                },
+                highlightColor: Colors.white,
+                child: const CircleAvatar(
+                  backgroundColor: Colors.white24,
+                  radius: 15,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.black,
+                    backgroundImage: AssetImage("images/profilePic.jpeg"),
+                    radius: 14,
+                  ),
+                ),
               ),
             ),
           ],
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.dehaze,
-              color: Colors.white,
-            ),
-          ),
+          centerTitle: false,
+          titleSpacing: 0,
           backgroundColor: Colors.black,
-          title: Center(
-            child: Image.asset("images/popFlix.png", width: 150, height: 190),
+          title: Padding(
+            padding: const EdgeInsets.only(left: 115),
+            child: Image.asset("images/popFlix.png", width: 130 , height: 190),
           )),
       backgroundColor: Colors.black,
       body: routes.elementAt(_currentPage),
