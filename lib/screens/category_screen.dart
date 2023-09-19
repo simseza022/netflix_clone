@@ -20,14 +20,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              child: Text("Movies", style: TextStyle(color: Colors.red),),
-            ),
+            // const Padding(
+            //   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            //   child: Text("Movies", style: TextStyle(color: Colors.red),),
+            // ),
             Expanded(
               child: GridView.count(
-                mainAxisSpacing: 10,
+                mainAxisSpacing: 70,
                 crossAxisCount: 2,
+                childAspectRatio: 0.9,
                 children: List.generate(widget.movies.length, (index) {
                   return ReusableMovieCard(
                     movieDO: widget.movies[index],
@@ -38,6 +39,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ],
         ),
       ),
-    );
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+      title:  const Text("Movies", style: TextStyle(color: Colors.red)),
+      ));
   }
 }

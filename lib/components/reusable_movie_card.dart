@@ -15,9 +15,15 @@ class ReusableMovieCard extends StatefulWidget {
 class _ReusableMovieCardState extends State<ReusableMovieCard> {
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
-      direction: Axis.vertical,
+    return ConstrainedBox(
+
+      constraints: const BoxConstraints(
+        maxHeight: 260,
+        maxWidth: 140,
+        minHeight: 100,
+        minWidth: 140
+      ),
+      child: Column(
         children: [
           Container(
             width: 120,
@@ -35,13 +41,15 @@ class _ReusableMovieCardState extends State<ReusableMovieCard> {
           SizedBox(
             width: 100,
             child: Text(
-              widget.movieDO.title,
-              textAlign: TextAlign.start,
-              style: const TextStyle(color: Colors.white54,),
+                widget.movieDO.title,
+                textAlign: TextAlign.start,
+                style: const TextStyle(color: Colors.white54,),
                 softWrap:true
             ),
           ),
         ],
+
+      ),
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:popcorn_flix/components/reusable_movie_card.dart';
 import '../dataObjects/movieDO1.dart';
+import '../screens/category_screen.dart';
 
 class ReusableMovieGroup extends StatefulWidget {
   final String categoryName;
@@ -30,7 +32,7 @@ class _ReusableMovieGroupState extends State<ReusableMovieGroup> {
               TextButton(
                   onPressed: () {
                     // RequestHelper().getMovies();
-                    // Navigator.push(context, MaterialPageRoute(builder: (c)=>CategoryScreen(movies: widget.movies)));
+                    Navigator.push(context, MaterialPageRoute(builder: (c)=>CategoryScreen(movies: widget.movies)));
                   },
                   child: const Text("View All",
                       textAlign: TextAlign.end,
@@ -38,8 +40,11 @@ class _ReusableMovieGroupState extends State<ReusableMovieGroup> {
             ],
           ),
         ),
-        SizedBox(
-          height: 230,
+        ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxHeight: 260,
+            minHeight: 100
+          ),
           child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
@@ -50,7 +55,6 @@ class _ReusableMovieGroupState extends State<ReusableMovieGroup> {
               }),
         ),
       ],
-
     );
   }
 }
