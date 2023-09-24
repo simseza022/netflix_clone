@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "487295226180",
+    "project_id": "popcorn-flix-e7bbd",
+    "storage_bucket": "popcorn-flix-e7bbd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487295226180:android:bd34f9df8df4e233ed8711",
+        "android_client_info": {
+          "package_name": "com.example.popcorn_flix"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUrfcPUQHTITXY3Os-EHC5loFqNV0DXP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

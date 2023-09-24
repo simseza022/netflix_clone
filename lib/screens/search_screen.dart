@@ -14,6 +14,9 @@ class _SearchScreenState extends State<SearchScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SearchAnchor(
+        headerTextStyle: const TextStyle(color: Colors.white),
+        isFullScreen: false,
+        viewBackgroundColor: Colors.black,
           builder: (BuildContext context, SearchController controller) {
             return SearchBar(
               textStyle: MaterialStateProperty.resolveWith((states)=>const TextStyle(color: Colors.white)),
@@ -28,21 +31,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 controller.openView();
               },
               leading: const Icon(Icons.search, color: Colors.white,),
-              trailing: <Widget>[
-                Tooltip(
-                  message: 'Change brightness mode',
-                  child: IconButton(
-                    isSelected: isDark,
-                    onPressed: () {
-                      setState(() {
-                        isDark = !isDark;
-                      });
-                    },
-                    icon: const Icon(Icons.wb_sunny_outlined),
-                    selectedIcon: const Icon(Icons.brightness_2_outlined),
-                  ),
-                )
-              ],
+              hintText: "Search...",
+              hintStyle: MaterialStateProperty.resolveWith((states)=>const TextStyle(color: Colors.white38)),
             );
           }, suggestionsBuilder: (BuildContext context, SearchController controller) { return <ListTile>[]; },),
     );
