@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:popcorn_flix/Forms/signIn_form.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-
-
-import '../Forms/signUp_form.dart';
-
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 borderRadius: BorderRadius.all(Radius.circular(20)),
 
               ),
-              child: SignUpForm(),
+              child: SignInForm(),
             ),
           ),
         ),

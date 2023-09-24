@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:popcorn_flix/Networking/authentification.dart';
+import 'package:popcorn_flix/screens/signIn_screen.dart';
+import 'package:popcorn_flix/screens/signup_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -8,6 +12,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  var userEnmail =  FirebaseAuth.instance.currentUser?.email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,22 +48,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Flexible(
             flex: 7,
             child: ListView(
-              children: const [
-                Card(
-                  child: ListTile(
-                    tileColor: Colors.black,
-                    leading: Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Icon(Icons.person, size: 30, color: Color.fromRGBO(189, 132, 132,1),),
-                    ),
-                    title: Text('Name', style: TextStyle(color: Colors.white24),),
-                    subtitle:
-                    Text('Sisonke Msezane', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                    trailing: Icon(Icons.edit, color: Color.fromRGBO(189, 132, 132,1), size: 25,),//
-                    isThreeLine: true,
-                  ),
-                ),
-                Card(
+              children:  [
+                 Card(
                   child: ListTile(
                     tileColor: Colors.black,
                     leading: Padding(
@@ -66,24 +58,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     title: Text('Email Address', style: TextStyle(color: Colors.white24),),
                     subtitle:
-                    Text('sisonkemondli@gmai.com', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                    Text(userEnmail==null?'sisonkemondli@gmail.com':userEnmail!, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
                     trailing: Icon(Icons.edit, color: Color.fromRGBO(189, 132, 132,1), size: 25,),//
                     isThreeLine: true,
                   ),
                 ),
-                Card(
+                const Card(
                   child: ListTile(
                     tileColor: Colors.black,
                     leading: Padding(
                       padding: EdgeInsets.only(right: 10),
-                      child: Icon(Icons.phone, size: 30, color: Color.fromRGBO(189, 132, 132,1),),
+                      child: Icon(Icons.password_rounded, size: 30, color: Color.fromRGBO(189, 132, 132,1),),
                     ),
-                    title: Text('Phone Number', style: TextStyle(color: Colors.white24),),
+                    title: Text('Password', style: TextStyle(color: Colors.white24),),
                     subtitle:
-                    Text('+2723456789', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                    Text('*********', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
                     trailing: Icon(Icons.edit, color: Color.fromRGBO(189, 132, 132,1), size: 25,),//
                     isThreeLine: true,
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Auth().signOutUser().then((value){
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>  const SignInScreen()), (route) => false);
+                        });
+                      },
+                      style: ButtonStyle(
+                          shadowColor: MaterialStateProperty.all<Color>(Colors.red),
+                          elevation: MaterialStateProperty.all<double>(20),
+                          backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.red),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                  side: const BorderSide(color: Colors.red)))),
+                      child: const Center(
+                          child: Text(
+                            "Log Out",
+                            style: TextStyle(color: Colors.white),
+                          ))),
                 ),
               ],
             ),

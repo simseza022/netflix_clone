@@ -1,19 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:popcorn_flix/Networking/authentification.dart';
 import 'package:popcorn_flix/screens/loading_screen.dart';
+import 'package:popcorn_flix/screens/signup_screen.dart';
 
-import '../screens/home_screen.dart';
-
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class SignInForm extends StatefulWidget {
+  const SignInForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<SignInForm> createState() => _SignInFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _SignInFormState extends State<SignInForm> {
   final formKey = GlobalKey<FormState>();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   bool shouldRememberLogin = false;
   String? validateEmail(String ?value){
     RegExp exp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,10}$');
@@ -30,17 +31,12 @@ class _LoginFormState extends State<LoginForm> {
     if (value == null || value.isEmpty) {
       return 'Enter password';
     }
-    else if(confirmPasswordController.value.text != passwordController.value.text){
-      return "Passwords do not match";
-    }
+
     return null;
   }
   String? validateConfPassword(String ?value){
     if (value == null || value.isEmpty) {
       return 'Enter password';
-    }
-    else if(confirmPasswordController.value.text != passwordController.value.text){
-      return "Passwords do not match";
     }
     return null;
   }
@@ -64,11 +60,13 @@ class _LoginFormState extends State<LoginForm> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
               child: TextFormField(
+                controller: emailController,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.email_outlined,
                     color: Colors.redAccent,
                   ),
+
                   contentPadding: const EdgeInsets.all(7),
                   hintText: "Email address",
                   errorStyle: const TextStyle(color: Colors.redAccent),
@@ -104,52 +102,44 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-              child: TextFormField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(
-                    Icons.password,
-                    color: Colors.redAccent,
-                  ),
-                  contentPadding: const EdgeInsets.all(7),
-                  hintText: "Confirm Password",
-                  filled: true,
-                  fillColor: Colors.white,
-                  errorStyle: const TextStyle(color: Colors.redAccent),
-                  // errorText: ,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                ),
-                controller: confirmPasswordController,
-                onChanged: (value){formKey.currentState!.validate();},
-                validator: validateConfPassword,
-              ),
-            ),
-
-            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
               child: ElevatedButton(
                   onPressed: () {
-                   if(formKey.currentState!.validate()){
-                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>  LoadingScreen()), (route) => false);
-                   }
+                    if(formKey.currentState!.validate()){
+                      Auth().logInUser(emailController.value.text ,passwordController.value.text).then((value) {
+
+                          if(value == 'INVALID_LOGIN_CREDENTIALS'){
+                            const snackBar = SnackBar(
+                              duration: Duration(seconds: 1),
+                              content: Text('Wrong Email/Password!', style: TextStyle(color: Colors.red),),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          }
+                          else if(value is UserCredential){
+                            UserCredential creds = value;
+                            if(creds.user?.uid != null){
+                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>  LoadingScreen()), (route) => false);
+                            }
+
+                          }
+                        //
+                      });
+                    }
                   },
                   style: ButtonStyle(
                       shadowColor: MaterialStateProperty.all<Color>(Colors.red),
                       elevation: MaterialStateProperty.all<double>(20),
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.red),
+                      MaterialStateProperty.all<Color>(Colors.red),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
                               side: const BorderSide(color: Colors.red)))),
                   child: const Center(
                       child: Text(
-                    "Sign up",
-                    style: TextStyle(color: Colors.white),
-                  ))),
+                        "Sign in",
+                        style: TextStyle(color: Colors.white),
+                      ))),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -176,13 +166,15 @@ class _LoginFormState extends State<LoginForm> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "Already on Netflix?",
+                  "New to PopcornFlix?",
                   style: TextStyle(color: Colors.white70),
                 ),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const SignUpScreen()), (route) => false);
+                    },
                     child: const Text(
-                      "Sign in",
+                      "Sign up",
                       style: TextStyle(color: Colors.red),
                     ))
               ],

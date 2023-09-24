@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentPage = 0;
-  Color homeColor = Colors.white24;
+  Color homeColor = Colors.redAccent;
   Color searchColor = Colors.white24;
   Color favColor = Colors.white24;
   @override
