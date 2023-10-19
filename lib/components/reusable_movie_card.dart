@@ -62,7 +62,7 @@ class _ReusableMovieCardState extends State<ReusableMovieCard> {
           child: Container(
             width: 130,
             height: 200,
-            child: widget.movieDO.networkImage??Image.network(
+            child:Image.network(
               widget.movieDO.posterUrl,
               fit: BoxFit.cover,
               loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress){

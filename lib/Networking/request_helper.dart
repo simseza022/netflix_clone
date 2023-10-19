@@ -19,9 +19,10 @@ class RequestHelper{
   dynamic getUpcomingMovies(){
     Map<String, dynamic> params =  {
       "info": 'base_info',
-      "sort":"year.decr"
+      "sort":"year.incr",
+      "genre": "Action"
     };
-    final uri = Uri.https(rapidApiUrl,"/titles/x/upcoming");
+    final uri = Uri.https(rapidApiUrl,"/titles/x/upcoming", params);
     print(uri.toString());
     var mov = NetworkHelper(uri).getData();
     print(mov);

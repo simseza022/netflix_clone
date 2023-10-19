@@ -1,9 +1,5 @@
 
 
-
-
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 
 class MovieDO1{
@@ -21,10 +17,6 @@ class MovieDO1{
     title = json["titleText"]["text"];
     posterUrl = json["primaryImage"]["url"];
     data = json;
-    networkImage = Image.network(
-      posterUrl,
-      fit: BoxFit.cover,
-    );
   }
   void addNetworkImage(Widget s){
     networkImage = s;

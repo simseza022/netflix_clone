@@ -48,24 +48,28 @@ class _MovieScreenState extends State<MovieScreen>{
                       ),
                     );
                   },
-
                 ),
               ),
             ),
             Positioned(
-              top: 300,
+              top: 100,
+              height: 350,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                     Text(
-                      widget.movie.title,
-                      style: const TextStyle(
-                          fontSize: 45.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                     Container(
+                       width: 400,
+                       child: Text(
+                        widget.movie.title,
+                        style: const TextStyle(
+                            fontSize: 45.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                     ),
+                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Container(
@@ -102,8 +106,6 @@ class _MovieScreenState extends State<MovieScreen>{
                                 color: Colors.white, fontWeight: FontWeight.bold),
                           )),
                     ),
-
-
                   ],
                 ),
               ),
@@ -146,7 +148,6 @@ class _MovieScreenState extends State<MovieScreen>{
             style: const TextStyle(color: Colors.white),
           ),
         )
-
       ]),
     );
   }

@@ -88,7 +88,7 @@ class _MovieCardDetailedState extends State<MovieCardDetailed> {
                   ),),
                 Text(getGenresData(widget.movie.data['genres']['genres']),
                   style:TextStyle(
-                    color: Colors.white24,
+                    color: Colors.white54,
                     fontWeight: FontWeight.bold
                   ),
                 ),
