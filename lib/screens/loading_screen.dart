@@ -17,8 +17,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   * 3. deactivate() -> gets called everytime when our stateful widget gets popped off the widget tree.
   * */
   var categoryMovies = {
-    "most_pop_movies": <MovieDO1>[],
-    "top_boxoffice_200":<MovieDO1>[],
+    "top_boxoffice_200": <MovieDO1>[],
+    "top_rated_series_250":<MovieDO1>[],
     "upcoming_movies":<MovieDO1>[]
   };
   @override
@@ -32,11 +32,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
     List<MovieDO1> movies = [];
     for(var i in data){
       print(i);
-      if(i["primaryImage"] != null){
+      if(i["primaryImage"] != null && i["plot"] != null){
         MovieDO1 m = MovieDO1();
         m.fromJson(i);
+
         movies.add(m);
       }
+
 
     }
     return movies;

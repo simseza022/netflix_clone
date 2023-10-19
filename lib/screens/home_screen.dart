@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
     return Scaffold(
       appBar: AppBar(
+          leading: Icon(Icons.menu, color: Colors.white70,),
           /**/
           actions: [
             Padding(
@@ -47,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     backgroundColor: Colors.black,
                     backgroundImage: AssetImage("images/profilePic.jpeg"),
                     radius: 14,
+
                   ),
                 ),
               ),
@@ -55,10 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
           centerTitle: false,
           titleSpacing: 0,
           backgroundColor: Colors.black,
-          title: Padding(
-            padding: const EdgeInsets.only(left: 115),
-            child: Image.asset("images/popFlix.png", width: 130 , height: 190),
-          )),
+          title: Center(child: Image.asset("images/popFlix.png", width: 130 , height: 190))),
       backgroundColor: Colors.black,
       body: routes.elementAt(_currentPage),
       bottomNavigationBar: BottomAppBar(

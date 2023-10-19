@@ -18,7 +18,7 @@ class _LandingScreenState extends State<LandingScreen> {
         child: Column(
           children: [
             ReusableMovieGroup(categoryName: "Top Box-Office Movies", movies: widget.netMovies["top_boxoffice_200"]),
-            ReusableMovieGroup(categoryName: "Trending Pop Movies", movies: widget.netMovies["most_pop_movies"]),
+            ReusableMovieGroup(categoryName: "Top Rated Series", movies: widget.netMovies["top_rated_series_250"]),
             ReusableMovieGroup(categoryName: "Upcoming Movies", movies: widget.netMovies["upcoming_movies"]),
           ],
         ),

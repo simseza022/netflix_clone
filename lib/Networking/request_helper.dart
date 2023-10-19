@@ -5,9 +5,11 @@ class RequestHelper{
   dynamic getCategoryMovies(String category){
     // titleType=movie&startYear=2010
     Map<String, dynamic> params =  {
-      "list": category
+      "list": category,
+      "sort":"year.decr",
+      "info": 'base_info'
     };
-    final uri = Uri.https(rapidApiUrl,"/titles/random",params);
+    final uri = Uri.https(rapidApiUrl,"/titles",params);
     print(uri.toString());
     var mov = NetworkHelper(uri).getData();
     print(mov);
@@ -16,8 +18,8 @@ class RequestHelper{
 
   dynamic getUpcomingMovies(){
     Map<String, dynamic> params =  {
-      "year":"2022",
-      "page":"2"
+      "info": 'base_info',
+      "sort":"year.decr"
     };
     final uri = Uri.https(rapidApiUrl,"/titles/x/upcoming");
     print(uri.toString());
