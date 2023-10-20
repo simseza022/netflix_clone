@@ -3,7 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:popcorn_flix/screens/home_screen.dart';
 
 import '../Networking/request_helper.dart';
-import '../dataObjects/movieDO1.dart';
+import '../dataObjects/movieDO.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -17,23 +17,23 @@ class _LoadingScreenState extends State<LoadingScreen> {
   * 3. deactivate() -> gets called everytime when our stateful widget gets popped off the widget tree.
   * */
   var categoryMovies = {
-    "top_boxoffice_200": <MovieDO1>[],
-    "top_rated_series_250":<MovieDO1>[],
-    "upcoming_movies":<MovieDO1>[]
+    "top_boxoffice_200": <MovieDO>[],
+    "top_rated_series_250":<MovieDO>[],
+    "upcoming_movies":<MovieDO>[]
   };
   @override
   void initState() {
     super.initState();
     getMovieData();
   }
-  List<MovieDO1> extractMovies(dynamic data){
+  List<MovieDO> extractMovies(dynamic data){
     print("RESULTS");
     print(data);
-    List<MovieDO1> movies = [];
+    List<MovieDO> movies = [];
     for(var i in data){
       print(i);
       if(i["primaryImage"] != null && i["plot"] != null){
-        MovieDO1 m = MovieDO1();
+        MovieDO m = MovieDO();
         m.fromJson(i);
 
         movies.add(m);

@@ -29,6 +29,16 @@ class RequestHelper{
     return mov;
   }
 
+  dynamic getMovieDirectorsAndCreators(String id){
+    Map<String, dynamic> params =  {
+      "info": "creators_directors_writers"
+    };
+    final uri = Uri.https(rapidApiUrl,"/titles/$id", params);
+    var data = NetworkHelper(uri).getData();
+    print(data);
+    return data;
+  }
+
 
 
 

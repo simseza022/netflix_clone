@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:popcorn_flix/components/reusable_movie_card.dart';
-import '../dataObjects/movieDO1.dart';
+import '../dataObjects/movieDO.dart';
 import '../screens/category_screen.dart';
 
 class ReusableMovieGroup extends StatefulWidget {
   final String categoryName;
-  final List<MovieDO1> movies;
+  final List<MovieDO> movies;
   const ReusableMovieGroup({super.key, required this.categoryName, required this.movies});
 
   @override

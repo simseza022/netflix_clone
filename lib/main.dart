@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:popcorn_flix/screens/loading_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -6,8 +7,21 @@ import 'package:popcorn_flix/screens/signup_screen.dart';
 import 'firebase_options.dart';
 
 
+
+class CustomImageCache extends WidgetsFlutterBinding {
+  @override
+  ImageCache createImageCache() {
+    ImageCache imageCache = super.createImageCache();
+    // Set your image cache size
+    imageCache.maximumSizeBytes = 1024 * 1024 * 500; // 100 MB
+    return imageCache;
+  }
+}
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if (kReleaseMode) {
+    CustomImageCache();
+  }
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

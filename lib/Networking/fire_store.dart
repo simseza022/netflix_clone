@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:popcorn_flix/dataObjects/movieDO1.dart';
+import 'package:popcorn_flix/dataObjects/movieDO.dart';
 
 class FireStoreDB{
-  Future<void>  addFavorite(MovieDO1 movie) async {
+  Future<void>  addFavorite(MovieDO movie) async {
     var user = FirebaseAuth.instance;
     var db = FirebaseFirestore.instance;
 

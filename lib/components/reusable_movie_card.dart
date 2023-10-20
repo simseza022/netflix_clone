@@ -3,13 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:popcorn_flix/Networking/fire_store.dart';
 import 'package:popcorn_flix/screens/movie_screen.dart';
-
-
-import '../dataObjects/movieDO1.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import '../dataObjects/movieDO.dart';
 
 
 class ReusableMovieCard extends StatefulWidget {
-  final MovieDO1 movieDO;
+  final MovieDO movieDO;
   const ReusableMovieCard({super.key, required this.movieDO});
 
   @override
@@ -62,27 +61,12 @@ class _ReusableMovieCardState extends State<ReusableMovieCard> {
           child: Container(
             width: 130,
             height: 200,
-            child:Image.network(
-              widget.movieDO.posterUrl,
+            child: CachedNetworkImage(
+              imageUrl: widget.movieDO.posterUrl,
               fit: BoxFit.cover,
-              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress){
-                if (loadingProgress == null) {
-                  return child;
-                }
-                if(loadingProgress.cumulativeBytesLoaded == loadingProgress.expectedTotalBytes){
-                  widget.movieDO.addNetworkImage(context.widget);
-                }
-
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.redAccent,
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes!
-                        : null,
-                  ),
-                );
-              },
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(child: CircularProgressIndicator(value: downloadProgress.progress, color: Colors.redAccent, )),
+              errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.redAccent,),
 
             ),
           ),

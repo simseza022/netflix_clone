@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:popcorn_flix/screens/movie_screen.dart';
 
-import '../dataObjects/movieDO1.dart';
+import '../dataObjects/movieDO.dart';
 
 class MovieCardDetailed extends StatefulWidget {
-  final MovieDO1 movie;
+  final MovieDO movie;
   const MovieCardDetailed({super.key, required this.movie});
 
   @override
@@ -38,31 +39,17 @@ class _MovieCardDetailedState extends State<MovieCardDetailed> {
                 padding: const EdgeInsets.all(8.0),
                 child: ClipRRect(
 
-
                   borderRadius: BorderRadius.circular(25),
                   child: InkWell(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context){return MovieScreen(movie: widget.movie); }));
                     },
-                    child: widget.movie.networkImage ?? Image.network(
-                      widget.movie.posterUrl,
-                      height: 150,
+                    child: CachedNetworkImage(
+                      imageUrl: widget.movie.posterUrl,
                       fit: BoxFit.cover,
-                      loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress){
-                        if (loadingProgress == null) {
-                          return child;
-                        }
-                        return Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.redAccent,
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                                : null,
-                          ),
-                        );
-                      },
-
+                      progressIndicatorBuilder: (context, url, downloadProgress) =>
+                          Center(child: CircularProgressIndicator(value: downloadProgress.progress, color: Colors.redAccent, )),
+                      errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.redAccent,),
                     ),
                   ),
                 ),

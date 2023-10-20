@@ -3,10 +3,9 @@ import 'package:popcorn_flix/components/reusable_movie_card_detailed.dart';
 
 import '../components/reusable_movie_card.dart';
 import '../dataObjects/movieDO.dart';
-import '../dataObjects/movieDO1.dart';
 
 class CategoryScreen extends StatefulWidget {
-  final List<MovieDO1> movies;
+  final List<MovieDO> movies;
   const CategoryScreen({super.key, required this.movies});
 
   @override

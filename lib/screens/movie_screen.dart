@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:popcorn_flix/dataObjects/movieDO1.dart';
+import 'package:popcorn_flix/dataObjects/movieDO.dart';
+
+import '../Networking/request_helper.dart';
 
 class MovieScreen extends StatefulWidget {
-  final MovieDO1 movie;
+  final MovieDO movie;
   const MovieScreen({super.key, required this.movie});
 
   @override
@@ -10,10 +13,34 @@ class MovieScreen extends StatefulWidget {
 }
 
 class _MovieScreenState extends State<MovieScreen>{
+  dynamic? directorsAndCreators;
+  void getMovieDirectorsAndCreators() async{
+    try{
+        RequestHelper requestHelper = RequestHelper();
+        await requestHelper.getMovieDirectorsAndCreators(widget.movie.id).then(
+            (value){
+              print(value);
+              setState(() {
+                directorsAndCreators = value['results'];
+              });
+            }
+        );
+    }catch(e){
+      print("Error loading data: \n$e");
+    }
+
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    getMovieDirectorsAndCreators();
+    super.initState();
+  }
 
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(children: [
@@ -31,23 +58,14 @@ class _MovieScreenState extends State<MovieScreen>{
               child: Container(
                 height: 450,
                 width: double.infinity,
-                child: Image.network(
-                    widget.movie.posterUrl,
+                child: CachedNetworkImage(
+
+                  imageUrl: widget.movie.posterUrl,
                   fit: BoxFit.cover,
-                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress){
-                    if (loadingProgress == null) {
-                      return child;
-                    }
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.redAccent,
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Center(child: CircularProgressIndicator(value: downloadProgress.progress, color: Colors.redAccent, )),
+                  errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.redAccent,),
+
                 ),
               ),
             ),
@@ -85,27 +103,24 @@ class _MovieScreenState extends State<MovieScreen>{
                         )
                       ),
                     ),
-                    SizedBox(
-                      width: 350,
-                      height: 55,
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                              elevation: MaterialStateProperty.all<double>(20),
-                              backgroundColor:
-                                  MaterialStateProperty.all<Color>(Colors.red),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                      side:
-                                          const BorderSide(color: Colors.red)))),
-                          onPressed: () {},
-                          child: const Text(
-                            "Watch",
-                            style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.bold),
-                          )),
-                    ),
+                    ElevatedButton(
+                        style: ButtonStyle(
+                          fixedSize: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width/2,55)),
+                            elevation: MaterialStateProperty.all<double>(20),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.red),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    side:
+                                        const BorderSide(color: Colors.red)))),
+                        onPressed: () {},
+                        child: const Text(
+                          "Watch",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        )),
                   ],
                 ),
               ),
@@ -147,6 +162,10 @@ class _MovieScreenState extends State<MovieScreen>{
           child: Text(widget.movie.data['plot']['plotText']['plainText'],
             style: const TextStyle(color: Colors.white),
           ),
+        ),
+        Container(
+          child: directorsAndCreators==null? Text("\nLoading data..."):
+          Text("Director: ${directorsAndCreators['directors'][0]['credits'][0]['name']['nameText']['text']}"),
         )
       ]),
     );
