@@ -38,6 +38,27 @@ class RequestHelper{
     print(data);
     return data;
   }
+  dynamic getMovieTrailer(String id){
+    Map<String, dynamic> params =  {
+      "info": "trailer"
+    };
+    final uri = Uri.https(rapidApiUrl,"/titles/$id", params);
+    var data = NetworkHelper(uri).getData();
+    print(uri.toString());
+    return data;
+  }
+
+  dynamic searchMovies(String searchStr){
+    Map<String, dynamic> params =  {
+      "info": 'base_info',
+      "sort":"year.incr",
+    };
+    final uri = Uri.https(rapidApiUrl,"/titles/search/title/$searchStr", params);
+    var data = NetworkHelper(uri).getData();
+    print(uri.toString());
+    return data;
+  }
+
 
 
 

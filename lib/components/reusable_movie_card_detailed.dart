@@ -24,7 +24,6 @@ class _MovieCardDetailedState extends State<MovieCardDetailed> {
         genres = genres + s[i]['text'];
       }
     }
-
     return genres;
   }
   @override

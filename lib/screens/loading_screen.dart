@@ -18,8 +18,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   * */
   var categoryMovies = {
     "top_boxoffice_200": <MovieDO>[],
-    "top_rated_series_250":<MovieDO>[],
-    "upcoming_movies":<MovieDO>[]
+    "most_pop_series":<MovieDO>[],
+    "top_rated_series_250":<MovieDO>[]
   };
   @override
   void initState() {

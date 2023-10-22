@@ -17,9 +17,11 @@ class _LandingScreenState extends State<LandingScreen> {
       child:  SingleChildScrollView(
         child: Column(
           children: [
-            ReusableMovieGroup(categoryName: "Top Box-Office Movies", movies: widget.netMovies["top_boxoffice_200"]),
-            ReusableMovieGroup(categoryName: "Top Rated Series", movies: widget.netMovies["top_rated_series_250"]),
-            ReusableMovieGroup(categoryName: "Upcoming Movies", movies: widget.netMovies["upcoming_movies"]),
+            ReusableMovieGroup(categoryName: "Top Rated Series", movies: widget.netMovies["most_pop_series"]),
+            ReusableMovieGroup(categoryName: "Upcoming Movies", movies: widget.netMovies["top_rated_series_250"]),
+            ReusableMovieGroup(categoryName: "Top Rated Movies", movies: widget.netMovies["top_boxoffice_200"]),
+
+
           ],
         ),
       ),
